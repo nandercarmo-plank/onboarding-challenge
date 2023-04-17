@@ -1,138 +1,166 @@
 {
-	"rocket": [
-		{
-			"id": 0,
-			"name": "Going Merry"
-		},
-		{
-			"id": 1,
-			"name": "Konoha"
-		}
-	],
-	"launch": [
-		{
-			"id": 0,
-			"launchCode": "Launch 01",
-			"date": "06/04/23",
-			"success": true,
-			"rocketId": 0,
-			"crewId": 0
-		},
-		{
-			"id": 1,
-			"launchCode": "Launch 02",
-			"date": "12/04/23",
-			"success": false,
-			"rocketId": 0,
-			"crewId": 1
-		},
-		{
-			"id": 1,
-			"launchCode": "Launch 03",
-			"date": "19/04/23",
-			"success": false,
-			"rocketId": 1,
-			"crewId": 1
-		}
-	],
-	"crewman": [
-		{
-			"id": 0,
-			"name": "Luffy",
-			"patent": "Capitão",
-			"crewmanCrewId": 0
-		},
-		{
-			"id": 1,
-			"name": "Zoro",
-			"patent": "Primeiro imediato",
-			"crewmanCrewId": 0
-		},
-		{
-			"id": 2,
-			"name": "Nami",
-			"patent": "Navegadora",
-			"crewmanCrewId": 0
-		},
-		{
-			"id": 3,
-			"name": "Naruto",
-			"patent": "Hokage",
-			"crewmanCrewId": 1
-		},
-		{
-			"id": 4,
-			"name": "Sakura",
-			"patent": "Kunoich",
-			"crewmanCrewId": 1
-		},
-		{
-			"id": 5,
-			"name": "Sasuke",
-			"patent": "Jounin",
-			"crewmanCrewId": 1
-		},
-		{
-			"id": 6,
-			"name": "Kakashi",
-			"patent": "Ambu",
-			"crewmanCrewId": 1
-		}
-	],
-	"crew": [
-		{
-			"id": 0,
-			"name": "Bando do chapéu de palha",
-			"crewmanCrewId": 0
-		},
-		{
-			"id": 1,
-			"name": "Equipe 7",
-			"crewmanCrewId": 1		
-		}
-	],
-	"crewmanCrew": [
-		{
-			"id": 0,
-			"cremanCrewId": 0,
-			"crewmanId": 0,
-			"crewId": 0
-		},
-		{
-			"id": 1,
-			"cremanCrewId": 0,
-			"crewmanId": 1,
-			"crewId": 0
-		},
-		{
-			"id": 2,
-			"cremanCrewId": 0,
-			"crewmanId": 2,
-			"crewId": 0
-		},
-		{
-			"id": 3,
-			"cremanCrewId": 1,
-			"crewmanId": 3,
-			"crewId": 1
-		},
-		{
-			"id": 4,
-			"cremanCrewId": 1,
-			"crewmanId": 4,
-			"crewId": 1
-		},
-		{
-			"id": 5,
-			"cremanCrewId": 1,
-			"crewmanId": 5,
-			"crewId": 1
-		},
-		{
-			"id": 6,
-			"cremanCrewId": 1,
-			"crewmanId": 6,
-			"crewId": 1
-		}
-	]
+  "rocket": [
+    {
+      "id": 0,
+      "name": "Going Merry"
+    },
+    {
+      "id": 1,
+      "name": "Konoha"
+    }
+  ],
+  "launch": [
+    {
+      "id": 0,
+      "launchCode": "Launch 01",
+      "date": "06/04/23",
+      "success": true,
+      "rocketId": 0,
+      "crewId": 0
+    },
+    {
+      "id": 1,
+      "launchCode": "Launch 02",
+      "date": "12/04/23",
+      "success": false,
+      "rocketId": 0,
+      "crewId": 1
+    },
+    {
+      "id": 2,
+      "launchCode": "Launch 03",
+      "date": "19/04/23",
+      "success": false,
+      "rocketId": 1,
+      "crewId": 1
+    }
+  ],
+  "crewman": [
+    {
+      "id": 0,
+      "name": "Luffy",
+      "patent": "Capitão"
+    },
+    {
+      "id": 1,
+      "name": "Zoro",
+      "patent": "Primeiro imediato"
+    },
+    {
+      "id": 2,
+      "name": "Nami",
+      "patent": "Navegadora"
+    },
+    {
+      "id": 3,
+      "name": "Naruto",
+      "patent": "Hokage"
+    },
+    {
+      "id": 4,
+      "name": "Sakura",
+      "patent": "Kunoich"
+    },
+    {
+      "id": 5,
+      "name": "Sasuke",
+      "patent": "Jounin"
+    },
+    {
+      "id": 6,
+      "name": "Kakashi",
+      "patent": "Ambu"
+    },
+    {
+      "name": "Jessie",
+      "patent": "Ladra",
+      "id": 7
+    },
+    {
+      "name": "James",
+      "patent": "Side-kick",
+      "id": 8
+    },
+    {
+      "name": "Miau",
+      "patent": "Líder",
+      "id": 9
+    },
+    {
+      "name": "Seto Kaiba",
+      "patent": "Fundador",
+      "id": 10
+    },
+    {
+      "name": "Mokuba Kaiba",
+      "patent": "Herdeiro",
+      "id": 11
+    }
+  ],
+  "crew": [
+    {
+      "id": 0,
+      "name": "Bando do chapéu de palha"
+    },
+    {
+      "id": 1,
+      "name": "Equipe 7"
+    },
+    {
+      "name": "Equipe Rocket",
+      "id": 2
+    }
+  ],
+  "crewmanCrew": [
+    {
+      "id": 0,
+      "crewmanId": 0,
+      "crewId": 0
+    },
+    {
+      "id": 1,
+      "crewmanId": 1,
+      "crewId": 0
+    },
+    {
+      "id": 2,
+      "crewmanId": 2,
+      "crewId": 0
+    },
+    {
+      "id": 3,
+      "crewmanId": 3,
+      "crewId": 1
+    },
+    {
+      "id": 4,
+      "crewmanId": 4,
+      "crewId": 1
+    },
+    {
+      "id": 5,
+      "crewmanId": 5,
+      "crewId": 1
+    },
+    {
+      "id": 6,
+      "crewmanId": 6,
+      "crewId": 1
+    },
+    {
+      "crewId": 2,
+      "crewmanId": 7,
+      "id": 7
+    },
+    {
+      "crewId": 2,
+      "crewmanId": 8,
+      "id": 8
+    },
+    {
+      "crewId": 2,
+      "crewmanId": 9,
+      "id": 9
+    }
+  ]
 }

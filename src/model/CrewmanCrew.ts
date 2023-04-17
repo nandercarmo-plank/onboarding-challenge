@@ -7,11 +7,23 @@ interface ICrewmanCrew {
 	setCrewId(crewId: number): CrewmanCrew;
 }
 
+interface ICrewmanCrewParams { 
+	id: number; 
+	crewmanId: number; 
+	crewId: number; 
+};
+
 export default class CrewmanCrew implements ICrewmanCrew {
 	
 	private id: number;
 	private crewmanId: number;
 	private crewId: number;
+
+	constructor({ id, crewmanId, crewId }: ICrewmanCrewParams) {
+		this.id = id;
+		this.crewmanId = crewmanId;
+		this.crewId = crewId;
+	}
 
 	getId(): number {
 		return this.id;

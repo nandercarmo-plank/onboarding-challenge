@@ -9,11 +9,23 @@ interface ICrewman {
 	setPatent(patent: string): Crewman;
 };
 
+interface ICrewmanParams { 
+	id: number; 
+	name: string; 
+	patent: string; 
+}
+
 export default class Crewman implements ICrewman {
 
 	private id: number;
 	private name: string;
 	private patent: string;
+	
+	constructor({ id, name, patent }: ICrewmanParams) {
+		this.id = id;
+		this.name = name;
+		this.patent = patent;		
+	}
 
 	getId(): number {
 		return this.id;

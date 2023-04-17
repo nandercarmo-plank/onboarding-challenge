@@ -11,12 +11,26 @@ interface ICrew {
 	setCrewman(crewman: Crewman[]): Crew;
 };
 
+interface ICrewParams { 
+	id: number; 
+	name: string; 
+	launch: string; 
+	crewman: Crewman[]; 
+};
+
 export default class Crew implements ICrew {
 
 	private id: number;
 	private name: string;
 	private launch: string;
 	private crewman: Crewman[];
+
+	constructor({ id, name, launch, crewman }: ICrewParams) {
+		this.id = id;
+		this.name = name;
+		this.launch = launch;
+		this.crewman = crewman;
+	}
 	
 	getId(): number {
 		return this.id;

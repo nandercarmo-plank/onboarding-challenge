@@ -9,11 +9,20 @@ interface ILaunch {
 	getDate(): string;
 	setDate(date: string): Launch;
 	isSuccess(): boolean;
-	setSuccess(isSuccess: boolean);
+	setSuccess(isSuccess: boolean): Launch;
 	getRocket(): Rocket;
 	setRocket(rocket: Rocket): Launch;
 	getCrew(): Crew | undefined;
 	setCrew(crew: Crew): Launch;
+};
+
+interface ILaunchParams { 
+	id: number; 
+	launchCode: string; 
+	date: string; 
+	success: boolean; 
+	rocket: Rocket; 
+	crew: Crew; 
 };
 
 export default class Launch implements ILaunch {
@@ -24,6 +33,15 @@ export default class Launch implements ILaunch {
 	private success: boolean;
 	private rocket: Rocket;
 	private crew: Crew;
+
+	constructor({ id, launchCode, date, success, rocket, crew }: ILaunchParams) {
+		this.id = id;
+		this.launchCode = launchCode;
+		this.date = date;
+		this.success = success;
+		this.rocket = rocket;
+		this.crew = crew;
+	}
 
 	getId(): number {
 		return this.id;

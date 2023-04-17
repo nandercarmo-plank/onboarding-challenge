@@ -7,10 +7,20 @@ interface IRocket {
 	setId(id: number): Rocket;
 }
 
+interface IRocketParams { 
+	name: string; 
+	id: number; 
+}
+
 export default class Rocket implements IRocket {
 
 	private name: string;
 	private id: number;
+
+	constructor({ name, id }: IRocketParams) {
+		this.name = name;
+		this.id = id;
+	}
 
 	getName(): string {
 		return this.name;
