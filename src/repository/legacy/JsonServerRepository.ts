@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-import IRepository from "./Repository";
+import { IRepository } from "../Repository";
 
-export default class JsonServerRepository<T> implements IRepository<T> {
+class JsonServerRepository<T> implements IRepository<T> {
 	
 	private static baseURL = process.env['JSON_SERVER_BASE_URL'];
 	private static header = { headers: { Accept: 'application/json' }};
@@ -37,3 +37,7 @@ export default class JsonServerRepository<T> implements IRepository<T> {
 		await axios.delete<T>(this.path + '/' + id, JsonServerRepository.header);
 	}
 }
+
+export {
+	JsonServerRepository
+};

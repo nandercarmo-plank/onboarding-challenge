@@ -1,5 +1,6 @@
 import { ICreateRocketDto, IRocketDto, IUpdateRocketDto } from "../dto/RocketDto";
-import IRepository from "../repository/Repository";
+import { Rocket } from "../model/Rocket";
+import { IRepository } from "../repository/Repository";
 
 interface IRocketService {
 	getRockets(): Promise<IRocketDto[]>;
@@ -11,9 +12,9 @@ interface IRocketService {
 
 class RocketService implements IRocketService {
 	
-	private rocketRepository: IRepository<IRocketDto>;
+	private rocketRepository: IRepository<Rocket>;
 
-	constructor(repository: IRepository<IRocketDto>) {
+	constructor(repository: IRepository<Rocket>) {
 		this.rocketRepository = repository;
 	}
 
@@ -27,7 +28,7 @@ class RocketService implements IRocketService {
 	}
 
 	async createRocket(rocket: ICreateRocketDto): Promise<IRocketDto> {
-		return await this.rocketRepository.create(rocket);
+		return await this.rocketRepository.create(new Rocket(0, rocket.name));
 	}
 
 	async updateRocket(id: number, rocket: IUpdateRocketDto): Promise<IRocketDto> {
@@ -46,4 +47,4 @@ class RocketService implements IRocketService {
 export {
 	IRocketService,
 	RocketService
-}
+};

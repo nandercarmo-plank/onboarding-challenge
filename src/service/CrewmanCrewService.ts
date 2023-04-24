@@ -1,5 +1,5 @@
 import { ICreateCrewmanCrewDto, ICrewmanCrewDto, IUpdateCrewmanCrewDto } from "../dto/CrewmanCrewDto";
-import IRepository from "../repository/Repository";
+import { IRepository } from "../repository/Repository";
 
 interface ICrewmanCrewService {
 	getCrewmanCrews(): Promise<ICrewmanCrewDto[]>;

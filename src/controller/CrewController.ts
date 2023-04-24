@@ -1,46 +1,63 @@
 import { Request, Response } from "express";
-import { ICreateCrewDto, ICrewDto, IUpdateCrewDto } from "../dto/CrewDto";
+import { ICreateCrewDto, IUpdateCrewDto } from "../dto/CrewDto";
+import { errorHandler } from "../middleware/log/logger";
+import { CrewRepository } from "../repository/CrewRepository";
+import { CrewmanRepository } from "../repository/CrewmanRepository";
 import { CrewService } from "../service/CrewService";
-import JsonServerRepository from "../repository/JsonServerRepository";
-import { ICrewmanDto } from "../dto/CrewmanDto";
-import { ICrewmanCrewDto } from "../dto/CrewmanCrewDto";
-import { errorHandler } from "../middleware/log/Logger";
 import { CrewmanService } from "../service/CrewmanService";
-import { CrewmanCrewService } from "../service/CrewmanCrewService";
 
-const crewRepository = new JsonServerRepository<ICrewDto>('/crew');
-const crewmanRepository = new JsonServerRepository<ICrewmanDto>('/crewman');
-const crewmanCrewRepository = new JsonServerRepository<ICrewmanCrewDto>('/crewmanCrew');
+const crewRepository = new CrewRepository();
+const crewmanRepository = new CrewmanRepository();
 
 const crewmanService = new CrewmanService(crewmanRepository);
-const crewmanCrewService = new CrewmanCrewService(crewmanCrewRepository);
-const crewService = new CrewService(crewRepository, crewmanService, crewmanCrewService);
+const crewService = new CrewService(crewRepository, crewmanService);
 
 const getCrews = async (req: Request, res: Response) => {
-	res.json(await crewService.getCrews());
+	try {
+		res.json(await crewService.getCrews());
+	} catch (error) {
+		errorHandler(error as Error, req, res, () => { });
+	}
+}
+
+const getCrew = async (req: Request, res: Response) => {
+	try {
+		res.json(await crewService.getCrew(parseInt(req.params.id)));
+	} catch (error) {
+		errorHandler(error as Error, req, res, () => { });
+	}
 }
 
 const createCrew = async (req: Request, res: Response) => {
-	const body: ICreateCrewDto = req.body
-	res.json(await crewService.createCrew(body));
+	try {
+		const body: ICreateCrewDto = req.body
+		res.json(await crewService.createCrew(body));
+	} catch (error) {
+		errorHandler(error as Error, req, res, () => { });
+	}
 }
 
 const updateCrew = async (req: Request, res: Response) => {
-	const body: IUpdateCrewDto = req.body
-	res.json(await crewService.updateCrew(parseInt(req.params.id), body));
+	try {
+		const body: IUpdateCrewDto = req.body
+		res.json(await crewService.updateCrew(parseInt(req.params.id), body));
+	} catch (error) {
+		errorHandler(error as Error, req, res, () => { });
+	}
 }
 
 const deleteCrew = async (req: Request, res: Response) => {
 	try {
 		res.json(await crewService.deleteCrew(parseInt(req.params.id)));
-	} catch(err: any) {
-		errorHandler(err, req, res, () => {});
+	} catch (error) {
+		errorHandler(error as Error, req, res, () => { });
 	}
 }
 
 export {
 	getCrews,
+	getCrew,
 	createCrew,
 	updateCrew,
 	deleteCrew
-}
+};

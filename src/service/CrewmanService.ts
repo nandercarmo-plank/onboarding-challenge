@@ -1,8 +1,9 @@
 import { ICreateCrewmanDto, ICrewmanDto, IUpdateCrewmanDto } from "../dto/CrewmanDto";
-import IRepository from "../repository/Repository";
+import { IRepository } from "../repository/Repository";
 
 interface ICrewmanService {
 	getCrewmans(): Promise<ICrewmanDto[]>;
+	getCrewman(id: number): Promise<ICrewmanDto>;
 	createCrewman(crewman: ICreateCrewmanDto): Promise<ICrewmanDto>;
 	updateCrewman(id: number, crewman: IUpdateCrewmanDto): Promise<ICrewmanDto>;
 	deleteCrewman(id: number): Promise<void>;
@@ -20,13 +21,17 @@ class CrewmanService implements ICrewmanService {
 		return await this.crewmanRepository.findAll();
 	}
 
+	async getCrewman(id: number): Promise<ICrewmanDto> {
+		return await this.crewmanRepository.findById(id);
+	}
+
 	async createCrewman(crewman: ICreateCrewmanDto): Promise<ICrewmanDto> {
 		return await this.crewmanRepository.create(crewman);
 	}
 
 	async updateCrewman(id: number, crewman: IUpdateCrewmanDto): Promise<ICrewmanDto> {
-		
-		const updatedCrewman = await this.crewmanRepository.findById(id);	
+
+		const updatedCrewman = await this.crewmanRepository.findById(id);
 		updatedCrewman.name = crewman.name;
 		updatedCrewman.patent = crewman.patent;
 
@@ -41,4 +46,4 @@ class CrewmanService implements ICrewmanService {
 export {
 	ICrewmanService,
 	CrewmanService
-}
+};

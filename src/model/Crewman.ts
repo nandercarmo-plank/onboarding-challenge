@@ -1,56 +1,24 @@
-import Crew from "./Crew";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-interface ICrewman {
-	getId(): number;
-	setId(id: number): Crewman;
-	getName(): string;
-	setName(name: string): Crewman;
-	getPatent(): string;
-	setPatent(patent: string): Crewman;
-};
+@Entity('crewmans')
+class Crewman {
 
-interface ICrewmanParams { 
-	id: number; 
-	name: string; 
-	patent: string; 
-}
+	@PrimaryGeneratedColumn({ name: 'id' })
+	id: number;
 
-export default class Crewman implements ICrewman {
+	@Column({ type: 'text', name: 'name' })
+	name: string;
 
-	private id: number;
-	private name: string;
-	private patent: string;
-	
-	constructor({ id, name, patent }: ICrewmanParams) {
+	@Column({ type: 'text', name: 'patent' })
+	patent: string;
+
+	constructor(id: number, name: string, patent: string) {
 		this.id = id;
 		this.name = name;
-		this.patent = patent;		
-	}
-
-	getId(): number {
-		return this.id;
-	}
-
-	setId(id: number): Crewman {
-		this.id = id;
-		return this;
-	}
-
-	getName(): string {
-		return this.name;
-	}
-
-	setName(name: string): Crewman {
-		this.name = name;
-		return this;
-	}
-
-	getPatent(): string {
-		return this.patent;
-	}
-
-	setPatent(patent: string): Crewman {
 		this.patent = patent;
-		return this;
 	}
 }
+
+export {
+	Crewman
+};

@@ -1,70 +1,30 @@
-import Crewman from "./Crewman";
+import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Crewman } from "./Crewman";
 
-interface ICrew {
-	getId(): number;
-	setId(id: number): Crew;
-	getName(): string;
-	setName(name: string): Crew;
-	getLaunch(): string;
-	setLaunch(launch: string): Crew;
-	getCrewman(): Crewman[];
-	setCrewman(crewman: Crewman[]): Crew;
-};
+@Entity('crews')
+class Crew {
 
-interface ICrewParams { 
-	id: number; 
-	name: string; 
-	launch: string; 
-	crewman: Crewman[]; 
-};
+	@PrimaryGeneratedColumn({ name: 'id' })
+	id: number;
 
-export default class Crew implements ICrew {
+	@Column({ type: 'text', name: 'name' })
+	name: string;
 
-	private id: number;
-	private name: string;
-	private launch: string;
-	private crewman: Crewman[];
+	@ManyToMany(() => Crewman, { eager: true })
+	@JoinTable({ name: 'crew_crewmans' })
+	crewmans: Crewman[];
 
-	constructor({ id, name, launch, crewman }: ICrewParams) {
+	constructor(
+		id: number,
+		name: string,
+		crewmans: Crewman[]
+	) {
 		this.id = id;
 		this.name = name;
-		this.launch = launch;
-		this.crewman = crewman;
-	}
-	
-	getId(): number {
-		return this.id;
-	}
-	
-	setId(id: number): Crew {
-		this.id = id;
-		return this;
-	}
-	
-	getName(): string {
-		return this.name;
-	}
-	
-	setName(name: string): Crew {
-		this.name = name;
-		return this;
-	}
-	
-	getLaunch(): string {
-		return this.launch;
-	}
-	
-	setLaunch(launch: string): Crew {
-		this.launch = launch;
-		return this;
-	}
-	
-	getCrewman(): Crewman[] {
-		return this.crewman;
-	}
-	
-	setCrewman(crewman: Crewman[]): Crew {
-		this.crewman = crewman;
-		return this;
+		this.crewmans = crewmans;
 	}
 }
+
+export {
+	Crew
+};

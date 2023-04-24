@@ -1,42 +1,23 @@
-import Launch from "./Launch";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-interface IRocket {
-	getName(): string;
-	setName(name: string): Rocket;
-	getId(): number;
-	setId(id: number): Rocket;
-}
+@Entity('rockets')
+class Rocket {
 
-interface IRocketParams { 
-	name: string; 
-	id: number; 
-}
+	@PrimaryGeneratedColumn({ name: 'id' })
+	id: number;
+	
+	@Column({type: 'text', name: 'name' })
+	name: string;
 
-export default class Rocket implements IRocket {
-
-	private name: string;
-	private id: number;
-
-	constructor({ name, id }: IRocketParams) {
-		this.name = name;
+	constructor( 
+		id: number,
+		name: string,
+	) {
 		this.id = id;
-	}
-
-	getName(): string {
-		return this.name;
-	}
-
-	setName(name: string): Rocket {
 		this.name = name;
-		return this;			
-	}
-
-	getId(): number {
-		return this.id;
-	}
-
-	setId(id: number): Rocket {
-		this.id = id;
-		return this;		
 	}
 }
+
+export {
+	Rocket
+};
