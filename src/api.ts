@@ -26,6 +26,7 @@ api.use('/rocket', RocketRouter);
 api.use('/launch', LaunchRouter);
 api.use('/crewman', CrewmanRouter);
 api.use('/crew', CrewRouter);
+api.use('/', LaunchRouter);
 
 api.use(errorHandler);
 
