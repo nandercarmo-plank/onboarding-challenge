@@ -1,31 +1,32 @@
-import express from 'express';
 import bodyParser from 'body-parser';
 import { config as dotenvConfig } from 'dotenv';
+import express from 'express';
 
 dotenvConfig();
 
-import { RocketRouter } from './middleware/router/RocketRouter';
-import { LaunchRouter } from './middleware/router/LaunchRouter';
-import { CrewmanRouter } from './middleware/router/CrewmanRouter';
-import { CrewRouter } from './middleware/router/CrewRouter';
-import { errorHandler, logHandler } from './middleware/log/logger';
-import { corsConfig } from './middleware/config/corsConfig';
 import { dataSource } from './database/config/dataSourceConfig';
+import { corsConfig } from './middleware/config/corsConfig';
+import { errorHandler, logHandler } from './middleware/log/logger';
+import { CrewRouter } from './middleware/router/CrewRouter';
+import { CrewmanRouter } from './middleware/router/CrewmanRouter';
+import { LaunchRouter } from './middleware/router/LaunchRouter';
+import { RocketRouter } from './middleware/router/RocketRouter';
 
 dataSource.initialize().then(() => {
-	
-	const api = express();
+	console.log("DB connection done!");
+}).catch((err) => console.error(err));
 
-	api.use(logHandler);
-	api.use(corsConfig);
-	api.use(bodyParser.json());
+const api = express();
 
-	api.use('/rocket', RocketRouter);
-	api.use('/launch', LaunchRouter);
-	api.use('/crewman', CrewmanRouter);
-	api.use('/crew', CrewRouter);
+api.use(logHandler);
+api.use(corsConfig);
+api.use(bodyParser.json());
 
-	api.use(errorHandler);
+api.use('/rocket', RocketRouter);
+api.use('/launch', LaunchRouter);
+api.use('/crewman', CrewmanRouter);
+api.use('/crew', CrewRouter);
 
-	api.listen(process.env.PORT);
-});
+api.use(errorHandler);
+
+api.listen(process.env.PORT);
