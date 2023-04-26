@@ -4,6 +4,7 @@
 	"description": "Plank onboarding challenge",
 	"main": "api.js",
 	"scripts": {
+		"start": "ts-node-dev --respawn --transpile-only src/api.ts",
 		"server:dev": "ts-node-dev --respawn --transpile-only src/api.ts",
 		"migration:generate": "npx typeorm-ts-node-commonjs migration:generate -d ./src/database/config/dataSource.ts",
 		"migration:run": "npx typeorm-ts-node-commonjs migration:run -d ./src/database/config/dataSource.ts"
