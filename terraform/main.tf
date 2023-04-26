@@ -9,7 +9,7 @@ terraform {
 
 resource "vercel_project" "vercel_deploy" {
   name      = "onboarding-challenge"
-  framework = "node"
+  framework = "nodejs"
   git_repository = {
     type = "github"
     repo = "nandercarmo-plank/onboarding-challenge"
