@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { ICreateLaunchDto, IUpdateLaunchDto } from "../dto/LaunchDto";
-//import { errorHandler } from "../middleware/log/logger";
+import { ErrorHandler } from "../middleware/log/Logger";
 import { CrewRepository } from "../repository/CrewRepository";
 import { CrewmanRepository } from "../repository/CrewmanRepository";
 import { LaunchRepository } from "../repository/LaunchRepository";
@@ -25,7 +25,7 @@ const getLaunchs = async (req: Request, res: Response) => {
 	try {
 		res.json(await launchService.getLaunchs());
 	} catch (error) {
-		//errorHandler(error as Error, req, res, () => { });
+		ErrorHandler(error as Error, req, res, () => { });
 	}
 }
 
@@ -33,7 +33,7 @@ const getLaunch = async (req: Request, res: Response) => {
 	try {
 		res.json(await launchService.getLaunch(parseInt(req.params.id)));
 	} catch (error) {
-		//errorHandler(error as Error, req, res, () => { });
+		ErrorHandler(error as Error, req, res, () => { });
 	}
 }
 
@@ -42,7 +42,7 @@ const createLaunch = async (req: Request, res: Response) => {
 		const body: ICreateLaunchDto = req.body
 		res.json(await launchService.createLaunch(body));
 	} catch (error) {
-		//errorHandler(error as Error, req, res, () => { });
+		ErrorHandler(error as Error, req, res, () => { });
 	}
 }
 
@@ -51,7 +51,7 @@ const updateLaunch = async (req: Request, res: Response) => {
 		const body: IUpdateLaunchDto = req.body
 		res.json(await launchService.updateLaunch(parseInt(req.params.id), body));
 	} catch (error) {
-		//errorHandler(error as Error, req, res, () => { });
+		ErrorHandler(error as Error, req, res, () => { });
 	}
 }
 
@@ -59,7 +59,7 @@ const deleteLaunch = async (req: Request, res: Response) => {
 	try {
 		res.json(await launchService.deleteLaunch(parseInt(req.params.id)));
 	} catch (error) {
-		//errorHandler(error as Error, req, res, () => { });
+		ErrorHandler(error as Error, req, res, () => { });
 	}
 }
 

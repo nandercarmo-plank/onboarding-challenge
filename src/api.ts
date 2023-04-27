@@ -5,8 +5,8 @@ import express from 'express';
 dotenvConfig();
 
 import { dataSource } from './database/config/dataSourceConfig';
-//import { corsConfig } from './middleware/config/corsConfig';
-//import { errorHandler, logHandler } from './middleware/log/logger';
+import { CorsConfig } from './middleware/config/corsConfig';
+import { ErrorHandler, LogHandler } from './middleware/log/Logger';
 import { CrewRouter } from './middleware/router/CrewRouter';
 import { CrewmanRouter } from './middleware/router/CrewmanRouter';
 import { LaunchRouter } from './middleware/router/LaunchRouter';
@@ -18,8 +18,8 @@ dataSource.initialize().then(() => {
 
 	const api = express();
 
-	//api.use(logHandler);
-	//api.use(corsConfig);
+	api.use(LogHandler);
+	api.use(CorsConfig);
 	api.use(bodyParser.json());
 
 	api.use('/rocket', RocketRouter);
@@ -28,7 +28,7 @@ dataSource.initialize().then(() => {
 	api.use('/crew', CrewRouter);
 	api.use('/', LaunchRouter);
 
-	//api.use(errorHandler);
+	api.use(ErrorHandler);
 
 	api.listen(process.env.PORT);
 

@@ -1,6 +1,6 @@
 import cors from "cors";
 
-const corsWhiteList = [ 'https://www.google.com' ];
+const corsWhiteList = ['https://www.google.com'];
 
 const corsOption: cors.CorsOptions = {
 	origin: (origin, callback) => {
@@ -13,8 +13,8 @@ const corsOption: cors.CorsOptions = {
 	optionsSuccessStatus: 200
 };
 
-const corsConfig = cors(corsOption);
+const CorsConfig = cors(corsOption);
 
 export {
-	corsConfig
+	CorsConfig
 };
