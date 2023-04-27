@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { ICreateCrewDto, IUpdateCrewDto } from "../dto/CrewDto";
-import { errorHandler } from "../middleware/log/logger";
+//import { errorHandler } from "../middleware/log/logger";
 import { CrewRepository } from "../repository/CrewRepository";
 import { CrewmanRepository } from "../repository/CrewmanRepository";
 import { CrewService } from "../service/CrewService";
@@ -16,7 +16,7 @@ const getCrews = async (req: Request, res: Response) => {
 	try {
 		res.json(await crewService.getCrews());
 	} catch (error) {
-		errorHandler(error as Error, req, res, () => { });
+		//errorHandler(error as Error, req, res, () => { });
 	}
 }
 
@@ -24,7 +24,7 @@ const getCrew = async (req: Request, res: Response) => {
 	try {
 		res.json(await crewService.getCrew(parseInt(req.params.id)));
 	} catch (error) {
-		errorHandler(error as Error, req, res, () => { });
+		//errorHandler(error as Error, req, res, () => { });
 	}
 }
 
@@ -33,7 +33,7 @@ const createCrew = async (req: Request, res: Response) => {
 		const body: ICreateCrewDto = req.body
 		res.json(await crewService.createCrew(body));
 	} catch (error) {
-		errorHandler(error as Error, req, res, () => { });
+		//errorHandler(error as Error, req, res, () => { });
 	}
 }
 
@@ -42,7 +42,7 @@ const updateCrew = async (req: Request, res: Response) => {
 		const body: IUpdateCrewDto = req.body
 		res.json(await crewService.updateCrew(parseInt(req.params.id), body));
 	} catch (error) {
-		errorHandler(error as Error, req, res, () => { });
+		//errorHandler(error as Error, req, res, () => { });
 	}
 }
 
@@ -50,7 +50,7 @@ const deleteCrew = async (req: Request, res: Response) => {
 	try {
 		res.json(await crewService.deleteCrew(parseInt(req.params.id)));
 	} catch (error) {
-		errorHandler(error as Error, req, res, () => { });
+		//errorHandler(error as Error, req, res, () => { });
 	}
 }
 
