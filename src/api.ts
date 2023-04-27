@@ -5,7 +5,7 @@ import express from 'express';
 dotenvConfig();
 
 import { dataSource } from './database/config/dataSourceConfig';
-import { CorsConfig } from './middleware/config/corsConfig';
+import { CorsConfig } from './middleware/config/CorsConfig';
 import { ErrorHandler, LogHandler } from './middleware/log/Logger';
 import { CrewRouter } from './middleware/router/CrewRouter';
 import { CrewmanRouter } from './middleware/router/CrewmanRouter';
