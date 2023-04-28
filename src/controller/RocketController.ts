@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { ICreateRocketDto, IUpdateRocketDto } from "../dto/RocketDto";
-import { ErrorHandler } from "../middleware/log/Logger";
+import { RequestErrorHandler } from "../middleware/log/Logger";
 import { RocketRepository } from "../repository/RocketRepository";
 import { RocketService } from "../service/RocketService";
 
@@ -11,7 +11,7 @@ const getRockets = async (req: Request, res: Response) => {
 	try {
 		res.json(await rocketService.getRockets());
 	} catch (error) {
-		ErrorHandler(error as Error, req, res, () => { });
+		RequestErrorHandler(error as Error, req, res, () => { });
 	}
 }
 
@@ -19,7 +19,7 @@ const getRocket = async (req: Request, res: Response) => {
 	try {
 		res.json(await rocketService.getRocket(parseInt(req.params.id)));
 	} catch (error) {
-		ErrorHandler(error as Error, req, res, () => { });
+		RequestErrorHandler(error as Error, req, res, () => { });
 	}
 }
 
@@ -28,7 +28,7 @@ const createRocket = async (req: Request, res: Response) => {
 		const body: ICreateRocketDto = req.body
 		res.json(await rocketService.createRocket(body));
 	} catch (error) {
-		ErrorHandler(error as Error, req, res, () => { });
+		RequestErrorHandler(error as Error, req, res, () => { });
 	}
 }
 
@@ -37,7 +37,7 @@ const updateRocket = async (req: Request, res: Response) => {
 		const body: IUpdateRocketDto = req.body
 		res.json(await rocketService.updateRocket(parseInt(req.params.id), body));
 	} catch (error) {
-		ErrorHandler(error as Error, req, res, () => { });
+		RequestErrorHandler(error as Error, req, res, () => { });
 	}
 }
 
@@ -45,7 +45,7 @@ const deleteRocket = async (req: Request, res: Response) => {
 	try {
 		res.json(await rocketService.deleteRocket(parseInt(req.params.id)));
 	} catch (error) {
-		ErrorHandler(error as Error, req, res, () => { });
+		RequestErrorHandler(error as Error, req, res, () => { });
 	}
 }
 

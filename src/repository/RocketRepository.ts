@@ -33,7 +33,7 @@ class RocketRepository implements IRepository<Rocket> {
 		const result = await this.repository.findOneBy({ id });
 
 		if (result === null) {
-			throw new Error('Não foi possível encontrar o recurso para ser atualizado');
+			throw new Error('404 Not Found: Não foi possível encontrar o recurso para ser atualizado');
 		}
 
 		result.id = entity.id;

@@ -14,7 +14,7 @@ class LaunchRepository implements IRepository<Launch> {
 		const result = await this.repository.findOneBy({ id });
 
 		if (result === null) {
-			throw new Error('Não foi possível encontrar o recurso solicitado');
+			throw new Error('404 Not Found: Não foi possível encontrar o recurso solicitado');
 		}
 
 		return result;

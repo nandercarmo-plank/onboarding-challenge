@@ -1,6 +1,7 @@
 FROM node:17-alpine
 WORKDIR /api
-COPY . .
+COPY package.json .
 RUN npm install
-EXPOSE 3333
+COPY . .
+EXPOSE 80
 CMD ["npm", "run", "server:dev"]
