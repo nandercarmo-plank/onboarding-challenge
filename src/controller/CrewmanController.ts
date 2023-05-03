@@ -1,58 +1,60 @@
 import { Request, Response } from "express";
 import { ICreateCrewmanDto, IUpdateCrewmanDto } from "../dto/CrewmanDto";
 import { RequestErrorHandler } from "../middleware/log/Logger";
-import { CrewmanRepository } from "../repository/CrewmanRepository";
-import { CrewmanService } from "../service/CrewmanService";
+import { ICrewmanService } from "../service/CrewmanService";
+import { IController } from "./Controller";
 
-const crewmanRepository = new CrewmanRepository();
-const crewmanService = new CrewmanService(crewmanRepository);
+class CrewmanController implements IController {
 
-const getCrewmans = async (req: Request, res: Response) => {
-	try {
-		res.json(await crewmanService.getCrewmans());
-	} catch (error) {
-		RequestErrorHandler(error as Error, req, res, () => { });
+	private crewmanService: ICrewmanService;
+
+	constructor(crewmanService: ICrewmanService) {
+		this.crewmanService = crewmanService;
 	}
-}
 
-const getCrewman = async (req: Request, res: Response) => {
-	try {
-		res.json(await crewmanService.getCrewman(parseInt(req.params.id)));
-	} catch (error) {
-		RequestErrorHandler(error as Error, req, res, () => { });
+	async getAll(req: Request, res: Response): Promise<void> {
+		try {
+			res.json(await this.crewmanService.getCrewmans());
+		} catch (error) {
+			RequestErrorHandler(error as Error, req, res, () => { });
+		}
 	}
-}
 
-const createCrewman = async (req: Request, res: Response) => {
-	try {
-		const body: ICreateCrewmanDto = req.body
-		res.json(await crewmanService.createCrewman(body));
-	} catch (error) {
-		RequestErrorHandler(error as Error, req, res, () => { });
+	async get(req: Request, res: Response): Promise<void> {
+		try {
+			res.json(await this.crewmanService.getCrewman(parseInt(req.params.id)));
+		} catch (error) {
+			RequestErrorHandler(error as Error, req, res, () => { });
+		}
 	}
-}
 
-const updateCrewman = async (req: Request, res: Response) => {
-	try {
-		const body: IUpdateCrewmanDto = req.body
-		res.json(await crewmanService.updateCrewman(parseInt(req.params.id), body));
-	} catch (error) {
-		RequestErrorHandler(error as Error, req, res, () => { });
+	async create(req: Request, res: Response): Promise<void> {
+		try {
+			const body: ICreateCrewmanDto = req.body
+			res.json(await this.crewmanService.createCrewman(body));
+		} catch (error) {
+			RequestErrorHandler(error as Error, req, res, () => { });
+		}
 	}
-}
 
-const deleteCrewman = async (req: Request, res: Response) => {
-	try {
-		res.json(await crewmanService.deleteCrewman(parseInt(req.params.id)));
-	} catch (error) {
-		RequestErrorHandler(error as Error, req, res, () => { });
+	async update(req: Request, res: Response): Promise<void> {
+		try {
+			const body: IUpdateCrewmanDto = req.body
+			res.json(await this.crewmanService.updateCrewman(parseInt(req.params.id), body));
+		} catch (error) {
+			RequestErrorHandler(error as Error, req, res, () => { });
+		}
+	}
+
+	async delete(req: Request, res: Response): Promise<void> {
+		try {
+			res.json(await this.crewmanService.deleteCrewman(parseInt(req.params.id)));
+		} catch (error) {
+			RequestErrorHandler(error as Error, req, res, () => { });
+		}
 	}
 }
 
 export {
-	getCrewmans,
-	getCrewman,
-	createCrewman,
-	updateCrewman,
-	deleteCrewman
+	CrewmanController
 };

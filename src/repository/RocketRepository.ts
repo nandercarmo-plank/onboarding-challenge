@@ -7,6 +7,10 @@ class RocketRepository implements IRepository<Rocket> {
 
 	private repository = dataSource.getRepository(Rocket);
 
+	constructor() {
+		console.log('RocketRepository');
+	}
+
 	async findAll(): Promise<Rocket[]> {
 		return await this.repository.find();
 	}

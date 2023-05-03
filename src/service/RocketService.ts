@@ -11,10 +11,11 @@ interface IRocketService {
 }
 
 class RocketService implements IRocketService {
-	
+
 	private rocketRepository: IRepository<Rocket>;
 
 	constructor(repository: IRepository<Rocket>) {
+		console.log('RocketService');
 		this.rocketRepository = repository;
 	}
 
@@ -23,7 +24,7 @@ class RocketService implements IRocketService {
 	}
 
 	async getRocket(rocketId?: number): Promise<IRocketDto | undefined> {
-		if(rocketId === undefined) return undefined
+		if (rocketId === undefined) return undefined
 		return await this.rocketRepository.findById(rocketId);
 	}
 
@@ -32,8 +33,8 @@ class RocketService implements IRocketService {
 	}
 
 	async updateRocket(id: number, rocket: IUpdateRocketDto): Promise<IRocketDto> {
-		
-		const updatedRocket = await this.rocketRepository.findById(id);	
+
+		const updatedRocket = await this.rocketRepository.findById(id);
 		updatedRocket.name = rocket.name;
 
 		return await this.rocketRepository.update(id, updatedRocket);
