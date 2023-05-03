@@ -3,8 +3,6 @@ import { rocketController } from "../../modules/RocketModule";
 
 const router = Router();
 
-console.log('RocketRouter');
-
 router.get('/', rocketController.getAll.bind(rocketController));
 router.get('/:id', rocketController.get.bind(rocketController));
 router.post('/', rocketController.create.bind(rocketController));

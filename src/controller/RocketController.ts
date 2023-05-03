@@ -9,13 +9,11 @@ class RocketController implements IController {
 	private rocketService: IRocketService;
 
 	constructor(service: IRocketService) {
-		console.log('RocketController');
 		this.rocketService = service;
 	}
 
 	async getAll(req: Request, res: Response) {
 		try {
-			console.log('Shazam coroi');
 			res.json(await this.rocketService.getRockets());
 		} catch (error) {
 			RequestErrorHandler(error as Error, req, res, () => { });

@@ -15,7 +15,6 @@ class RocketService implements IRocketService {
 	private rocketRepository: IRepository<Rocket>;
 
 	constructor(repository: IRepository<Rocket>) {
-		console.log('RocketService');
 		this.rocketRepository = repository;
 	}
 
