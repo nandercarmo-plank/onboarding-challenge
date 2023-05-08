@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { ICreateRocketDto, IUpdateRocketDto } from "../dto/RocketDto";
+import { ICreateRocketDto, IRocketDto, IUpdateRocketDto } from "../dto/RocketDto";
 import { RequestErrorHandler } from "../middleware/log/Logger";
 import { IRocketService } from "../service/RocketService";
 import { IController } from "./Controller";
 
-class RocketController implements IController {
+class RocketController implements IController<IRocketDto> {
 
 	private rocketService: IRocketService;
 
@@ -12,35 +12,47 @@ class RocketController implements IController {
 		this.rocketService = service;
 	}
 
-	async getAll(req: Request, res: Response) {
+	async getAll(req: Request, res: Response): Promise<IRocketDto[] | undefined> {
 		try {
-			res.json(await this.rocketService.getRockets());
+			const rockets = await this.rocketService.getRockets();
+			res.json(rockets);
+			return rockets;
 		} catch (error) {
 			RequestErrorHandler(error as Error, req, res, () => { });
 		}
 	}
 
-	async get(req: Request, res: Response) {
+	async get(req: Request, res: Response): Promise<IRocketDto | undefined> {
 		try {
-			res.json(await this.rocketService.getRocket(parseInt(req.params.id)));
+			const rocket = await this.rocketService.getRocket(parseInt(req.params.id));
+			res.json(rocket);
+			return rocket;
+
 		} catch (error) {
 			RequestErrorHandler(error as Error, req, res, () => { });
 		}
 	}
 
-	async create(req: Request, res: Response) {
+	async create(req: Request, res: Response): Promise<IRocketDto | undefined> {
 		try {
 			const body: ICreateRocketDto = req.body
-			res.json(await this.rocketService.createRocket(body));
+			const rocket = await this.rocketService.createRocket(body);
+			res.json(rocket);
+			return rocket;
+
 		} catch (error) {
+			console.log(error);
 			RequestErrorHandler(error as Error, req, res, () => { });
 		}
 	}
 
-	async update(req: Request, res: Response) {
+	async update(req: Request, res: Response): Promise<IRocketDto | undefined> {
 		try {
 			const body: IUpdateRocketDto = req.body
-			res.json(await this.rocketService.updateRocket(parseInt(req.params.id), body));
+			const rocket = await this.rocketService.updateRocket(parseInt(req.params.id), body);
+			res.json(rocket);
+			return rocket;
+
 		} catch (error) {
 			RequestErrorHandler(error as Error, req, res, () => { });
 		}

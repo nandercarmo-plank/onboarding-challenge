@@ -1,4 +1,6 @@
+import { ICrewDto } from "../dto/CrewDto";
 import { ICreateLaunchDto, ILaunchDto, IUpdateLaunchDto } from "../dto/LaunchDto";
+import { IRocketDto } from "../dto/RocketDto";
 import { Crew } from "../model/Crew";
 import { Launch } from "../model/Launch";
 import { Rocket } from "../model/Rocket";
@@ -17,7 +19,6 @@ interface ILaunchService {
 class LaunchService implements ILaunchService {
 
 	private launchRepository: IRepository<Launch>;
-
 	private rocketService: RocketService;
 	private crewService: CrewService;
 
@@ -50,15 +51,7 @@ class LaunchService implements ILaunchService {
 			throw new Error('Um lançamento obrigatoriamente precisa ser associado a um foguete em sua criação');
 		}
 
-		const launch = await this.launchRepository.create(new Launch(
-			0,
-			launchDto.launchCode,
-			launchDto.date,
-			launchDto.success,
-			new Rocket(rocket.id ?? 0, rocket.name),
-			new Crew(crew?.id ?? 0, crew?.name ?? '', [])
-		));
-
+		const launch = await this.launchRepository.create(this.buildNewLaunch(launchDto, rocket, crew));
 		const createdLaunch = await this.getLaunch(launch.id);
 
 		if (createdLaunch === undefined) {
@@ -78,15 +71,7 @@ class LaunchService implements ILaunchService {
 			throw new Error(`Não foi possível encontrar rocket com o id ${launchDto.rocketId} para ser attribuído ao launch ${launchDto.launchCode}`)
 		}
 
-		oldLaunch.rocket = new Rocket(rocket.id ?? 0, rocket.name)
-		oldLaunch.launchCode = launchDto.launchCode;
-		oldLaunch.date = launchDto.date;
-		oldLaunch.success = launchDto.success;
-
-		if (crew === undefined) oldLaunch.crew = undefined;
-		else oldLaunch.crew = new Crew(crew?.id ?? 0, crew?.name ?? '', []);
-
-		const launch = await this.launchRepository.update(id, oldLaunch);
+		const launch = await this.launchRepository.update(id, this.update(oldLaunch, launchDto, rocket, crew));
 		const updatedLaunch = await this.getLaunch(launch.id);
 
 		if (updatedLaunch === undefined) {
@@ -98,6 +83,40 @@ class LaunchService implements ILaunchService {
 
 	async deleteLaunch(id: number): Promise<void> {
 		await this.launchRepository.delete(id);
+	}
+
+	private buildNewLaunch(
+		launchDto: ICreateLaunchDto,
+		rocket: IRocketDto,
+		crew: ICrewDto | undefined
+	): Launch {
+
+		return new Launch(
+			0,
+			launchDto.launchCode,
+			launchDto.date,
+			launchDto.success,
+			new Rocket(rocket.id ?? 0, rocket.name),
+			new Crew(crew?.id ?? 0, crew?.name ?? '', [])
+		);
+	}
+
+	private update(
+		oldLaunch: Launch,
+		launchDto: IUpdateLaunchDto,
+		rocket: IRocketDto,
+		crew: ICrewDto | undefined
+	): Launch {
+
+		oldLaunch.rocket = new Rocket(rocket.id ?? 0, rocket.name)
+		oldLaunch.launchCode = launchDto.launchCode;
+		oldLaunch.date = launchDto.date;
+		oldLaunch.success = launchDto.success;
+
+		if (crew === undefined) oldLaunch.crew = undefined;
+		else oldLaunch.crew = new Crew(crew?.id ?? 0, crew?.name ?? '', []);
+
+		return oldLaunch;
 	}
 }
 

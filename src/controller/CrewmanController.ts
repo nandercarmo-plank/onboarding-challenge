@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { ICreateCrewmanDto, IUpdateCrewmanDto } from "../dto/CrewmanDto";
+import { ICreateCrewmanDto, ICrewmanDto, IUpdateCrewmanDto } from "../dto/CrewmanDto";
 import { RequestErrorHandler } from "../middleware/log/Logger";
 import { ICrewmanService } from "../service/CrewmanService";
 import { IController } from "./Controller";
 
-class CrewmanController implements IController {
+class CrewmanController implements IController<ICrewmanDto> {
 
 	private crewmanService: ICrewmanService;
 
@@ -12,35 +12,43 @@ class CrewmanController implements IController {
 		this.crewmanService = crewmanService;
 	}
 
-	async getAll(req: Request, res: Response): Promise<void> {
+	async getAll(req: Request, res: Response): Promise<ICrewmanDto[] | undefined> {
 		try {
-			res.json(await this.crewmanService.getCrewmans());
+			const crewmans = await this.crewmanService.getCrewmans();
+			res.json(crewmans);
+			return crewmans;
 		} catch (error) {
 			RequestErrorHandler(error as Error, req, res, () => { });
 		}
 	}
 
-	async get(req: Request, res: Response): Promise<void> {
+	async get(req: Request, res: Response): Promise<ICrewmanDto | undefined> {
 		try {
-			res.json(await this.crewmanService.getCrewman(parseInt(req.params.id)));
+			const crewman = await this.crewmanService.getCrewman(parseInt(req.params.id));
+			res.json(crewman);
+			return crewman;
 		} catch (error) {
 			RequestErrorHandler(error as Error, req, res, () => { });
 		}
 	}
 
-	async create(req: Request, res: Response): Promise<void> {
+	async create(req: Request, res: Response): Promise<ICrewmanDto | undefined> {
 		try {
 			const body: ICreateCrewmanDto = req.body
-			res.json(await this.crewmanService.createCrewman(body));
+			const crewman = await this.crewmanService.createCrewman(body);
+			res.json(crewman);
+			return crewman;
 		} catch (error) {
 			RequestErrorHandler(error as Error, req, res, () => { });
 		}
 	}
 
-	async update(req: Request, res: Response): Promise<void> {
+	async update(req: Request, res: Response): Promise<ICrewmanDto | undefined> {
 		try {
 			const body: IUpdateCrewmanDto = req.body
-			res.json(await this.crewmanService.updateCrewman(parseInt(req.params.id), body));
+			const crewman = await this.crewmanService.updateCrewman(parseInt(req.params.id), body);
+			res.json(crewman);
+			return crewman;
 		} catch (error) {
 			RequestErrorHandler(error as Error, req, res, () => { });
 		}

@@ -57,10 +57,6 @@ class CrewService implements ICrewService {
 
 		const crew = await this.crewRepository.findById(id);
 
-		if (crew === null) {
-			throw new Error('404 Not Found: Não foi possível encontrar o recurso para ser atualizado');
-		}
-
 		const crewmansDtos = await this.getCrewCrewmans(crewDto);
 		const crewmans = crewmansDtos.map(crewman => new Crewman(crewman.id ?? 0, crewman.name, crewman.patent));
 

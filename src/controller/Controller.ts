@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 
-interface IController {
-	getAll(req: Request, res: Response): void;
-	get(req: Request, res: Response): void;
-	create(req: Request, res: Response): void;
-	update(req: Request, res: Response): void;
-	delete(req: Request, res: Response): void;
+interface IController<ReturnType> {
+	getAll(req: Request, res: Response): Promise<ReturnType[] | undefined>;
+	get(req: Request, res: Response): Promise<ReturnType | undefined>;
+	create(req: Request, res: Response): Promise<ReturnType | undefined>;
+	update(req: Request, res: Response): Promise<ReturnType | undefined>;
+	delete(req: Request, res: Response): Promise<void | undefined>;
 };
 
 export {
